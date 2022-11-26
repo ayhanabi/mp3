@@ -9,7 +9,6 @@
 #
 #  Last Update: May 19,2022
 
-
 import os
 import requests
 from bs4 import BeautifulSoup
