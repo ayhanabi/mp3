@@ -32,7 +32,6 @@ print("Downloading ...\n")
 for (song, id) in liste:
         print(song)
         response = requests.get("https://cdn103.mp3indirdur.info/indir.asp?ID="+ id +"&cdn=cdn103&linkKontrol=0", allow_redirects=True)
-        downloaded_file = response.content
         if response.status_code == 200:
-            with open(song, 'wb') as f:
-                 f.write(response.content)
+           with open(song, 'wb') as f:
+               f.write(response.content)
