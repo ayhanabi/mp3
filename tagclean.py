@@ -5,10 +5,8 @@ from mutagen.easyid3 import EasyID3
 for x in os.listdir():
     if x.endswith(".mp3"):
         tags = EasyID3(x)
-        try: 
-            title = tags['title'][0]
-            if title.find("|")>0:
-                tags['title'] =  title[:title.find(" |")]
-        except:
-            tags['artist']=[""]
+        tags['title'] =  [x[x.find("-")+2:x.find(".mp3")]]
+        tags['artist'] = tags['albumartist']=[x[:x.find('-')-1]]
+        print(x)
         tags.save()
+
