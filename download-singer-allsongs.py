@@ -10,18 +10,21 @@ else:
     print("SingerID is needed")
     print(len(sys.argv))
     exit(1)
-count=1;
-while count>0 :
+count=1
+ 
+while count>0 :  
     url ='https://www.mp3indirdur.mobi/'+str(singerID)+'-'+str(count)+'-sanatci-sarkilari-cem-karaca-indir.html'
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    table = soup.find("ul", attrs={"class": "ortaMp3lerListesi"})
+    table = soup.find_all("li") #, attrs={"class": "sayiRenk"}
     songs=[]
     songID=[]
     liste=[]
-    for item in table.find_all("a", href=True):
-            songs += [item.text]
-            songID += [item['href'][1:][:item['href'][1:].index("-")]]
+    for item in table:
+        if item.find("span") is not None:
+            atag=item.find("a", href=True)
+            songs += [atag.text]
+            songID += [atag['href'][1:][:atag['href'][1:].index("-")]] 
     for index, (song, id) in enumerate(zip(songs,songID)):
         liste.append((song+".mp3", id))
 #   print("Downloading ...\n")
@@ -35,3 +38,4 @@ while count>0 :
          count += 1
     else: 
          count=0
+
